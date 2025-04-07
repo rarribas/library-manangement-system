@@ -1,6 +1,7 @@
 import './App.css'
 import { useContext, useEffect } from 'react';
 import AuthorsContext from './context/authors';
+import AuthorsList from './pages/AuthorsList';
 
 function App() {
 
@@ -17,12 +18,8 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(authors);
-
   return (
-    <div>
-      <p>Library management!</p>
-    </div>
+    <AuthorsList authors={authors} />
   )
 }
 
