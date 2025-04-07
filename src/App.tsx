@@ -1,7 +1,8 @@
 import './App.css'
 import { useContext, useEffect } from 'react';
 import AuthorsContext from './context/authors';
-import AuthorsList from './pages/AuthorsList';
+import { getRoutes } from './data/routes';
+import { Routes } from 'react-router';
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     throw new Error("UsersContext must be used within a UsersProvider");
   }
 
-  const { authors, getAuthors } = authorsContext;
+  const { getAuthors } = authorsContext;
 
   useEffect(() => {
     getAuthors();
@@ -19,7 +20,9 @@ function App() {
   }, []);
 
   return (
-    <AuthorsList authors={authors} />
+    <Routes>
+     {getRoutes()}
+    </Routes>
   )
 }
 
