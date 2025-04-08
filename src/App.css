@@ -32,7 +32,11 @@ ul {
 }
 
 section{
-  margin: 0 40px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 label,
