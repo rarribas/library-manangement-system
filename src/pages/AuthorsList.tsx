@@ -28,7 +28,7 @@ export default function AuthorsList() {
   };
 
   return (
-    <section className="half-width">
+    <section>
       <h1>Authors List</h1>
       <List>
         {getAuthors()}

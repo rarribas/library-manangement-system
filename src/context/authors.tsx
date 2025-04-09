@@ -9,7 +9,7 @@ export interface AuthorsContextI {
 const AuthorsContext = createContext<AuthorsContextI | null>(null);
 
 function Provider({ children }: { children: React.ReactNode }) {
-  const [authors, setAuthors] = useState<AuthorI[]>([]);
+  const [authors, setAuthors] = useState<Awaited<ReturnType<typeof getAuthors>>>([]);
 
   const getAuthors = ():Promise<AuthorI[]> => {
     return new Promise<AuthorI[]>((resolve) => {
