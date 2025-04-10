@@ -1,16 +1,26 @@
 import { useContext } from "react";
 import AuthorsContext from "../context/authors";
+import BooksContext from "../context/books";
 import styles from "./AuthorView.module.scss";
+import { type BooksInList } from "../data/books";
+import List from "../components/List";
+import { Link } from "react-router";
 import { useParams } from "react-router";
 
 export default function AuthorView() {
   const authorsContext = useContext(AuthorsContext);
+  const booksContext = useContext(BooksContext);
   
   if (!authorsContext) {
     throw new Error("AuthorContext must be used within a AuthorsProvider");
   }
 
+  if (!booksContext) {
+    throw new Error("BookContext must be used within a BooksProvider");
+  }
+
   const { authors } = authorsContext;
+  const { books } = booksContext;
   const { id } = useParams();
 
   const editableAuthor = authors.find((author) => author.id === Number(id));
@@ -18,6 +28,20 @@ export default function AuthorView() {
   if(!editableAuthor) {
     // TODO: Handle redirect to 404 page
     return <p>Author not found</p>;
+  }
+
+  const booksByAuthor:BooksInList[] = books.filter((book) => editableAuthor.bookIds?.includes(book.id));
+
+  const getListOfBooks = () => {
+    return booksByAuthor.map((book) => (
+      <li key={book.id}>
+        <Link to={`/book/${book.id}/view`}>
+          <img src={book.coverImage} alt={book.title} />
+          <p>{book.title} - {book.publishedYear.toLocaleDateString()}</p>
+        </Link>
+        
+      </li>
+    ));
   }
 
   return (
@@ -29,6 +53,15 @@ export default function AuthorView() {
         <p><span>Birthdate:</span>{editableAuthor.birthDate.toLocaleDateString()}</p>
         <p><span>Nationality:</span>{editableAuthor.nationality}</p>
       </div>
+
+      {booksByAuthor.length > 0 && (
+        <>
+          <h3>Books</h3>
+          <List>
+            {getListOfBooks()}
+          </List>
+        </>
+      )}
       
     </section>
   );

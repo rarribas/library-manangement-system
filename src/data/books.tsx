@@ -23,6 +23,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1949-06-08'),
   onsale: true,
   copiesAvailable: 5,
+  coverImage: 'https://covers.openlibrary.org/b/id/14845126-M.jpg',
 }, {
   id: 2,
   title: 'Harry Potter and the Philosopher\'s Stone',
@@ -30,6 +31,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1997-06-26'),
   onsale: false,
   copiesAvailable: 0,
+  coverImage: 'https://covers.openlibrary.org/b/id/12622431-M.jpg',
 }, {
   id: 3,
   title: 'The Lord of the Rings: The Fellowship of the Ring',
@@ -37,4 +39,15 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1954-07-29'),
   onsale: true,
   copiesAvailable: 2,
+  coverImage: 'https://covers.openlibrary.org/b/id/12607063-M.jpg',
+},{
+  id: 4,
+  title: 'The Lord of the Rings: The Two Towers',
+  category: BookCategory.Fiction,
+  publishedYear: new Date('1954-07-29'),
+  onsale: true,
+  copiesAvailable: 2,
+  coverImage: 'https://covers.openlibrary.org/b/id/14627082-M.jpg',
 }];
+
+export type BooksInList = Pick<BookI, "id" | "title" | "publishedYear" | "coverImage">

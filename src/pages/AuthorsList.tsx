@@ -2,6 +2,7 @@ import List from "../components/List";
 import {type AuthorI } from "../data/authors";
 import AuthorsContext from "../context/authors";
 import { useContext } from "react";
+import { Link } from "react-router";
 
 type AuthorsInList = Pick<AuthorI, "id" | "firstname" | "lastname" | "nationality">
 interface AuthorsListProps {
@@ -21,7 +22,9 @@ export default function AuthorsList() {
     return authors.map((author) => {
       return (
         <li key={author.id}>
-          {author.firstname} {author.lastname} - {author.nationality}
+          <Link to={`/author/${author.id}/view`}>
+            {author.firstname} {author.lastname}
+          </Link>
         </li>
       );
     });

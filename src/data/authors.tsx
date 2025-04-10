@@ -27,5 +27,5 @@ export const authorsData: AuthorI[] = [{
   lastname: 'Tolkien',
   birthDate: new Date('1892-09-02'),
   nationality: 'British',
-  bookIds: [3],
+  bookIds: [3, 4],
 }]
