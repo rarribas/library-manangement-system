@@ -1,8 +1,10 @@
 import Form from "./Form";
 import { authorInputs } from "../data/authors";
+import FormMessage, { type MessageVariantType } from "./FormMessage";
 import AuthorsContext from "../context/authors";
 import { type AuthorI, type LimitedAuthorType } from "../data/authors";
 import { useContext, useEffect, useState, ChangeEvent } from "react";
+import { useFormValidation } from "../hooks/useFormValidation";
 
 interface AuthorFormI {
   editableAuthor: AuthorI | undefined
@@ -15,6 +17,8 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
     lastname: editableAuthor?.lastname || '',
     nationality: editableAuthor?.nationality || '',
   });
+  const [submitStatus, setSubmitStatus] = useState<string| null>(null);
+  const {isValidData, isValidField } = useFormValidation();
 
   useEffect(() => {
     setAuthor({
@@ -23,6 +27,13 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
       nationality: editableAuthor?.nationality || '',
     })
   },[editableAuthor])
+
+  useEffect(() => {
+    if(submitStatus === "success"){ 
+      const timer = setTimeout(() => setSubmitStatus(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  },[submitStatus]);
 
   const authorsContext = useContext(AuthorsContext);
 
@@ -42,6 +53,10 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
     setAuthor(updatedAuthor)
   }
 
+  const getMessage = (message:string, variant:MessageVariantType) => {
+    return <FormMessage  message={message} variant={variant}/>
+  };
+
   const getInputs = () => {
     return authorInputs.map((input) => {
       return (
@@ -54,6 +69,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
             value={author[input.name]}
             onChange={(ev) => onInputChange(ev, input.name)}
           />
+          {!isValidField(input.name) && getMessage(`${input.text} cannot be empty`, "error")}
         </div>
       );   
     })
@@ -70,7 +86,11 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
   const onFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
-    // TODO: Implement error handling
+    const isValid = isValidData(author);
+    if(!isValid){
+      setSubmitStatus("error");
+      return false;
+    } 
 
     editAuthors({
       id: editableAuthor?.id || 0,
@@ -80,6 +100,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
     } as AuthorI)
 
     resetForm();
+    setSubmitStatus("success");
 
     if(afterSubmit) afterSubmit();
   }
@@ -88,5 +109,6 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
     <Form buttonText="Edit Author" onFormSubmit={onFormSubmit}>
       {getInputs()}
     </Form>
+    {submitStatus === 'success' && getMessage("Success! The user has been added", "success")}
   </>
 }

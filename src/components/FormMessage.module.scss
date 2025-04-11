@@ -1,0 +1,15 @@
+.form-message {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  margin-top: 4px;
+  background: #01818d;
+  border-radius: 4px;
+  color: #efefef;
+  font-size: 11px;
+  font-style: italic;
+
+  &[data-variant="error"]{
+    background: #DC3545;
+  }
+}
