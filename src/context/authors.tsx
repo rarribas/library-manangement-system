@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 export interface AuthorsContextI {
   authors: AuthorI[],
   getAuthors: () => Promise<AuthorI[]>,
+  editAuthors: (author: AuthorI) => void,
 }
 
 const AuthorsContext = createContext<AuthorsContextI | null>(null);
@@ -20,9 +21,27 @@ function Provider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const editAuthors = (author:AuthorI) => {
+    const authorsToUpdate = authors.map((a) => {
+      if(a.id === author.id) {
+        return {
+          ...a,
+          firstname: author.firstname,
+          lastname: author.lastname,
+          nationality: author.nationality
+        }
+      }else{
+        return a;
+      }
+    })
+
+    setAuthors(authorsToUpdate);
+  };
+
   const valueToShare = {
     authors,
     getAuthors,
+    editAuthors
   };
 
   return (

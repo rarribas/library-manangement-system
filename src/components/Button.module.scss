@@ -1,0 +1,33 @@
+.button {
+  padding: 6px;
+  width: 100%;
+  background: #9ba9ab;
+  color: white;
+  font-size: 12px;
+  border: 1px solid #2c2c2c;
+  border-radius: 4px;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  cursor: pointer;
+  
+  &:hover{
+    background-color: #8b9495;
+    text-decoration: none;
+  }
+
+  &[data-variant="danger"]{
+    background: #DC3545;
+
+    &:hover{
+      background-color: #c13442;
+    }
+  }
+
+  &[data-variant="success"]{
+    background: #30B0C7;
+
+    &:hover{
+      background-color: #2B9EAF;
+    }
+  }
+}
