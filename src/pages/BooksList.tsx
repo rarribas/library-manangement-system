@@ -22,7 +22,7 @@ export default function AuthorsList() {
     return books.map((book) => {
       return (
         <li key={book.id}>
-        <Link to={`/book/${book.id}/view`}>
+        <Link to={`/books/${book.id}/view`}>
           <img src={book.coverImage} alt={book.title} />
           <p>{book.title} - {book.publishedYear.toLocaleDateString()}</p>
         </Link>

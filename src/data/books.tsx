@@ -14,6 +14,7 @@ export interface BookI {
   category: BookCategory
   copiesAvailable: number,
   onsale: boolean,
+  isbn?: string
 }
 
 export const booksData: BookI[] = [{
@@ -23,6 +24,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1949-06-08'),
   onsale: true,
   copiesAvailable: 5,
+  isbn: '978-0451524935',
   coverImage: 'https://covers.openlibrary.org/b/id/14845126-M.jpg',
 }, {
   id: 2,
@@ -31,6 +33,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1997-06-26'),
   onsale: false,
   copiesAvailable: 0,
+  isbn: '978-0747532699',
   coverImage: 'https://covers.openlibrary.org/b/id/12622431-M.jpg',
 }, {
   id: 3,
@@ -39,6 +42,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1954-07-29'),
   onsale: true,
   copiesAvailable: 2,
+  isbn: '978-0618002228',
   coverImage: 'https://covers.openlibrary.org/b/id/12607063-M.jpg',
 },{
   id: 4,
@@ -47,6 +51,7 @@ export const booksData: BookI[] = [{
   publishedYear: new Date('1954-07-29'),
   onsale: true,
   copiesAvailable: 2,
+  isbn: '978-0618002228',
   coverImage: 'https://covers.openlibrary.org/b/id/14627082-M.jpg',
 }];
 
