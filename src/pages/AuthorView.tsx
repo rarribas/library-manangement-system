@@ -43,7 +43,6 @@ export default function AuthorView() {
           <img src={book.coverImage} alt={book.title} />
           <p>{book.title} - {book.publishedYear.toLocaleDateString()}</p>
         </Link>
-        
       </li>
     ));
   }

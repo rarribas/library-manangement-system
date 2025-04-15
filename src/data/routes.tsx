@@ -1,6 +1,7 @@
 import { Route } from "react-router";
 import AuthorsList from "../pages/AuthorsList";
 import AuthorView from "../pages/AuthorView";
+import BooksList from "../pages/BooksList";
 
 export interface AppRoutesI {
   mainRoute: boolean;
@@ -16,6 +17,10 @@ const AppRoutes:AppRoutesI[] = [{
   mainRoute: false,
   path: "/author/:id/view",
   component: <AuthorView/>,
+},{
+  mainRoute: false,
+  path: "/books",
+  component: <BooksList/>,
 }];
 
 export const getRoutes = () =>
