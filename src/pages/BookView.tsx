@@ -31,11 +31,11 @@ export default function AuthorView() {
         <img src={editableBook.coverImage} alt={editableBook.title} />
       </header>
       <div>
-        <p><span>Year:</span>{editableBook.publishedYear.toLocaleDateString()}</p>
-        <p><span>Category:</span>{editableBook.category}</p>
-        <p><span>ISBN:</span>{editableBook.isbn}</p>
+        <p><span>Year: </span>{editableBook.publishedYear.toLocaleDateString()}</p>
+        <p><span>Category: </span>{editableBook.category}</p>
+        <p><span>ISBN: </span>{editableBook.isbn}</p>
         <p><span>Copies Available:</span>{editableBook.copiesAvailable}</p>
-        <p><span>Onsale:</span>{editableBook.onsale ? 'Yes' : 'No'}</p>
+        <p><span>Onsale: </span>{editableBook.onsale ? 'Yes' : 'No'}</p>
       </div>
       <Button
         text="Edit"
