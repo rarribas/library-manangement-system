@@ -4,6 +4,7 @@ import styles from "./AuthorView.module.scss";
 import { useParams } from "react-router";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
+import BookForm from "../components/BookForm";
 
 export default function AuthorView() {
   const booksContext = useContext(BooksContext);
@@ -19,6 +20,8 @@ export default function AuthorView() {
 
   const editableBook = books.find((book) => book.id === Number(id));
 
+  console.log(books, editableBook)
+
   if(!editableBook) {
     // TODO: Handle redirect to 404 page
     return <p>Book not found</p>;
@@ -31,7 +34,7 @@ export default function AuthorView() {
         <img src={editableBook.coverImage} alt={editableBook.title} />
       </header>
       <div>
-        <p><span>Year: </span>{editableBook.publishedYear.toLocaleDateString()}</p>
+        <p><span>Year: </span>{editableBook.publishedYear}</p>
         <p><span>Category: </span>{editableBook.category}</p>
         <p><span>ISBN: </span>{editableBook.isbn}</p>
         <p><span>Copies Available:</span>{editableBook.copiesAvailable}</p>
@@ -44,7 +47,7 @@ export default function AuthorView() {
       <Modal
         showModal={showModal}
         onModalClosed={() => setShowModal(false)}>
-          <p>TODO EDIT</p>
+          <BookForm editableBook={editableBook} afterSubmit={() => setShowModal(false)}/>
         </Modal>
       
     </section>

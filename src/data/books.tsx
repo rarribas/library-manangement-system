@@ -1,4 +1,4 @@
-enum BookCategory {
+export enum BookCategory {
   Fiction = "Fiction",
   NonFiction = "NonFiction",
   ScienceFiction = "ScienceFiction",
@@ -9,7 +9,7 @@ enum BookCategory {
 export interface BookI {
   id: number
   title: string
-  publishedYear: Date
+  publishedYear: string
   coverImage?: string
   category: BookCategory
   copiesAvailable: number,
@@ -21,7 +21,7 @@ export const booksData: BookI[] = [{
   id: 1,
   title: '1984',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1949-06-08'),
+  publishedYear: new Date('1949-06-08').toLocaleDateString(),
   onsale: true,
   copiesAvailable: 5,
   isbn: '978-0451524935',
@@ -30,7 +30,7 @@ export const booksData: BookI[] = [{
   id: 2,
   title: 'Harry Potter and the Philosopher\'s Stone',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1997-06-26'),
+  publishedYear: new Date('1997-06-26').toLocaleDateString(),
   onsale: false,
   copiesAvailable: 0,
   isbn: '978-0747532699',
@@ -39,7 +39,7 @@ export const booksData: BookI[] = [{
   id: 3,
   title: 'The Lord of the Rings: The Fellowship of the Ring',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1954-07-29'),
+  publishedYear: new Date('1954-07-29').toLocaleDateString(),
   onsale: true,
   copiesAvailable: 2,
   isbn: '978-0618002228',
@@ -48,7 +48,7 @@ export const booksData: BookI[] = [{
   id: 4,
   title: 'The Lord of the Rings: The Two Towers',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1954-07-29'),
+  publishedYear: new Date('1954-07-29').toLocaleDateString(),
   onsale: true,
   copiesAvailable: 2,
   isbn: '978-0618002228',
@@ -56,3 +56,34 @@ export const booksData: BookI[] = [{
 }];
 
 export type BooksInList = Pick<BookI, "id" | "title" | "publishedYear" | "coverImage">
+
+export type LimitedBookType = Omit<BookI, 'id' | 'copiesAvailable' | 'onsale'>;
+
+export interface EditableBookI {
+  name: keyof LimitedBookType
+  type: 'text' | 'date'
+  text: string
+}
+
+// TODO: Category should be a dropdown
+export const bookInputs:EditableBookI[] = [{
+  name: "title",
+  type: "text",
+  text: "Title",
+},{
+  name: "category",
+  type: "text",
+  text: "Category",
+},{
+  name: "publishedYear",
+  type: "date",
+  text: "Published Year",
+},{
+  name: "coverImage",
+  type: "text",
+  text: "Cover Image",
+},{
+  name: "isbn",
+  type: "text",
+  text: "ISBN",
+}]

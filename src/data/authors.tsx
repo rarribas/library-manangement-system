@@ -7,8 +7,7 @@ export interface AuthorI {
   bookIds?: number[]
 }
 
-export type LimitedAuthorType = Omit<AuthorI, 'id' | 'birthDate' | 'bookIds'>
-;
+export type LimitedAuthorType = Omit<AuthorI, 'id' | 'birthDate' | 'bookIds'>;
 export interface EditableAuthorI {
   name: keyof LimitedAuthorType
   type: 'text'
