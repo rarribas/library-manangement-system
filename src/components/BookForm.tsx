@@ -52,8 +52,6 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       ...book,
       [inputName]: ev.target.value,
     };
-
-    console.log("ON INPU CHANGE", ev.target.value, inputName, updatedBook);
   
     setBook(updatedBook);
   };
