@@ -1,7 +1,7 @@
 export enum BookCategory {
   Fiction = "Fiction",
-  NonFiction = "NonFiction",
-  ScienceFiction = "ScienceFiction",
+  NonFiction = "Non Fiction",
+  ScienceFiction = "Science Fiction",
   Biography = "Biography",
   History = "History"
 }
@@ -21,7 +21,7 @@ export const booksData: BookI[] = [{
   id: 1,
   title: '1984',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1949-06-08').toLocaleDateString(),
+  publishedYear: new Date('1949-06-08').toISOString().split("T")[0],
   onsale: true,
   copiesAvailable: 5,
   isbn: '978-0451524935',
@@ -30,7 +30,7 @@ export const booksData: BookI[] = [{
   id: 2,
   title: 'Harry Potter and the Philosopher\'s Stone',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1997-06-26').toLocaleDateString(),
+  publishedYear: new Date('1997-06-26').toISOString().split("T")[0],
   onsale: false,
   copiesAvailable: 0,
   isbn: '978-0747532699',
@@ -39,7 +39,7 @@ export const booksData: BookI[] = [{
   id: 3,
   title: 'The Lord of the Rings: The Fellowship of the Ring',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1954-07-29').toLocaleDateString(),
+  publishedYear: new Date('1954-07-29').toISOString().split("T")[0],
   onsale: true,
   copiesAvailable: 2,
   isbn: '978-0618002228',
@@ -48,7 +48,7 @@ export const booksData: BookI[] = [{
   id: 4,
   title: 'The Lord of the Rings: The Two Towers',
   category: BookCategory.Fiction,
-  publishedYear: new Date('1954-07-29').toLocaleDateString(),
+  publishedYear: new Date('1954-07-29').toISOString().split("T")[0],
   onsale: true,
   copiesAvailable: 2,
   isbn: '978-0618002228',
@@ -61,19 +61,26 @@ export type LimitedBookType = Omit<BookI, 'id' | 'copiesAvailable' | 'onsale'>;
 
 export interface EditableBookI {
   name: keyof LimitedBookType
-  type: 'text' | 'date'
+  type: 'text' | 'date' | "select"
   text: string
+  options?: { label: string; value: string }[]
 }
 
-// TODO: Category should be a dropdown
+const buildcategorySelectOoptions = ():{ label: string; value: string }[] => {
+  return Object.values(BookCategory).map((category) => ({
+    label: category,
+    value: category
+  }))
+}
 export const bookInputs:EditableBookI[] = [{
   name: "title",
   type: "text",
   text: "Title",
 },{
   name: "category",
-  type: "text",
+  type: "select",
   text: "Category",
+  options: buildcategorySelectOoptions(),
 },{
   name: "publishedYear",
   type: "date",

@@ -47,15 +47,16 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
 
   const { editBooks } = booksContext;
 
-  const onInputChange = (ev:ChangeEvent<HTMLInputElement>, inputName:string) => {
-
+  const onInputChange = (ev: ChangeEvent<HTMLInputElement | HTMLSelectElement>, inputName: string) => {
     const updatedBook = {
-      ... book,
+      ...book,
       [inputName]: ev.target.value,
-    }
+    };
 
+    console.log("ON INPU CHANGE", ev.target.value, inputName, updatedBook);
+  
     setBook(updatedBook);
-  }
+  };
 
   const getMessage = (message:string, variant:MessageVariantType) => {
     return <FormMessage  message={message} variant={variant}/>
@@ -66,13 +67,33 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       return (
         <div  className="form-control" key={`input_${input.name}`}>
           <label htmlFor={input.name}>{input.text}</label>
-          <input
-            type={input.type}
-            name={input.name}
-            id={input.name}
-            value={book[input.name]}
-            onChange={(ev) => onInputChange(ev, input.name)}
-          />
+          {input.type === "select" ? (
+            <select
+              name={input.name}
+              id={input.name}
+              value={book[input.name]}
+              onChange={(ev) => onInputChange(ev, input.name)}
+            >
+
+              <option value="defaultCategory">Select a category</option>
+              {input.options?.map((option) => (
+                <option
+                  key={`input_${input.name}_${option.value}`}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          ): (
+            <input
+              type={input.type}
+              name={input.name}
+              id={input.name}
+              value={book[input.name]}
+              onChange={(ev) => onInputChange(ev, input.name)}
+            />
+          )}
           {!isValidField(input.name) && getMessage(`${input.text} cannot be empty`, "error")}
         </div>
       );   
@@ -100,11 +121,11 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
 
     editBooks({
       id: editableBook?.id || 0,
-      title: editableBook?.title,
-      category: editableBook?.category,
-      publishedYear: editableBook?.publishedYear,
-      coverImage: editableBook?.coverImage,
-      isbn: editableBook?.isbn,
+      title: book?.title,
+      category: book?.category,
+      publishedYear: book?.publishedYear,
+      coverImage: book?.coverImage,
+      isbn: book?.isbn,
     } as BookI)
 
     resetForm();

@@ -24,7 +24,7 @@ export default function AuthorsList() {
         <li key={book.id}>
         <Link to={`/books/${book.id}/view`}>
           <img src={book.coverImage} alt={book.title} />
-          <p>{book.title} - {book.publishedYear.toLocaleDateString()}</p>
+          <p>{book.title} - {book.publishedYear}</p>
         </Link>
       </li>
       );
