@@ -5,6 +5,7 @@ export interface BooksContextI {
   books: BookI[],
   getBooks: () => Promise<BookI[]>,
   editBooks: (book: BookI) => void,
+  addBook: (book: BookI) => void,
 }
 
 const BooksContext = createContext<BooksContextI | null>(null);
@@ -40,10 +41,32 @@ function Provider({ children }: { children: React.ReactNode }) {
     setBooks(booksToUpdate);
   };
 
+  const addBook = (book:BookI) => {
+    const lastBook = books.length > 0 ? books[books.length - 1] : undefined;
+    const newBook:BookI = {
+      id: lastBook && lastBook.id ? lastBook.id + 1 : 0,
+      title: book.title,
+      publishedYear: book.publishedYear,
+      coverImage: book.coverImage,
+      category: book.category,
+      isbn: book.isbn,
+      onsale: true,
+      copiesAvailable: 1
+    }
+
+    const bookToAdd = [
+      ...books,
+      newBook
+    ];
+
+    setBooks(bookToAdd)
+  }
+
   const valueToShare = {
     books,
     getBooks,
-    editBooks
+    editBooks,
+    addBook
   };
 
   return (

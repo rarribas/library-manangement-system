@@ -7,7 +7,7 @@ import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { useFormValidation } from "../hooks/useFormValidation";
 
 interface BookFormI {
-  editableBook: BookI | undefined
+  editableBook?: BookI 
   afterSubmit?: () => void
 }
 
@@ -45,7 +45,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
     throw new Error("BookContext must be used within a BooksProvider");
   }
 
-  const { editBooks } = booksContext;
+  const { editBooks, addBook } = booksContext;
 
   const onInputChange = (ev: ChangeEvent<HTMLInputElement | HTMLSelectElement>, inputName: string) => {
     const updatedBook = {
@@ -117,14 +117,20 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       return false;
     } 
 
-    editBooks({
-      id: editableBook?.id || 0,
+    const bookItem:BookI = {
+      id: editableBook?.id || '',
       title: book?.title,
       category: book?.category,
       publishedYear: book?.publishedYear,
       coverImage: book?.coverImage,
       isbn: book?.isbn,
-    } as BookI)
+    }
+
+    if(editableBook) {
+      editBooks(bookItem);
+    }else{
+      addBook(bookItem);
+    }
 
     resetForm();
     setSubmitStatus("success");
@@ -133,7 +139,9 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
   }
 
   return <>
-    <Form buttonText="Edit Book" onFormSubmit={onFormSubmit}>
+    <Form 
+      buttonText={editableBook ? "Edit Book" : "Add Book"} 
+      onFormSubmit={onFormSubmit}>
       {getInputs()}
     </Form>
     {submitStatus === 'success' && getMessage("Success! The book has been added", "success")}
