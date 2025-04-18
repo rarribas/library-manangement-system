@@ -26,6 +26,7 @@ export const getNavLinks = () =>
       <NavLink
         className={({ isActive }) => (isActive ? "active" : "")}
         to={navLink.url}
+        end={navLink.url === "/books" || navLink.url === "/"} 
       >
         {navLink.name}
       </NavLink>

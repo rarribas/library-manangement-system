@@ -65,6 +65,15 @@ nav li a{
   color: #f1f1f1;
 }
 
+nav li a.active{
+  color: #01818d;
+  text-decoration: underline;
+}
+
+nav li:has(a.active){
+  background: #3d3d3d;
+}
+
 label,
 input {
   color: #1e1e1e;
