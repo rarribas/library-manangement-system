@@ -4,6 +4,7 @@ import AuthorView from "../pages/AuthorView";
 import BooksList from "../pages/BooksList";
 import BookView from "../pages/BookView";
 import AddBook from "../pages/AddBook";
+import PageNotFound from "../pages/PageNotFound";
 
 export interface AppRoutesI {
   mainRoute: boolean;
@@ -31,6 +32,14 @@ const AppRoutes:AppRoutesI[] = [{
   mainRoute: false,
   path: "/books/create",
   component: <AddBook/>,
+},{
+  mainRoute: false,
+  path: "/not-found",
+  component: <PageNotFound/>,
+},{
+  mainRoute: false,
+  path: "*",
+  component: <PageNotFound/>,
 }];
 
 export const getRoutes = () =>

@@ -1,14 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthorsContext from "../context/authors";
 import BooksContext from "../context/books";
 import styles from "./AuthorView.module.scss";
 import { type BooksInList } from "../data/books";
 import List from "../components/List";
 import { Link } from "react-router";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import AuthorForm from "../components/AuthorForm";
+import Loading from "../components/Loading";
 
 export default function AuthorView() {
   const authorsContext = useContext(AuthorsContext);
@@ -23,15 +24,24 @@ export default function AuthorView() {
     throw new Error("BookContext must be used within a BooksProvider");
   }
 
-  const { authors } = authorsContext;
+  const { authors, isLoading } = authorsContext;
   const { books } = booksContext;
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const editableAuthor = authors.find((author) => author.id === Number(id));
 
+  useEffect(() => {
+    if(!editableAuthor && !isLoading) {
+      navigate("/not-found");
+    }
+  }, [editableAuthor, isLoading, navigate]);
+
+  if(isLoading) {
+    return <Loading/>;
+  }
+
   if(!editableAuthor) {
-    // TODO: Handle redirect to 404 page
-    return <p>Author not found</p>;
+    return null;  
   }
 
   const booksByAuthor:BooksInList[] = books.filter((book) => editableAuthor.bookIds?.includes(book.id));
@@ -41,7 +51,7 @@ export default function AuthorView() {
       <li key={book.id}>
         <Link to={`/book/${book.id}/view`}>
           <img src={book.coverImage} alt={book.title} />
-          <p>{book.title} - {book.publishedYear.toLocaleDateString()}</p>
+          <p>{book.title} - {book.publishedYear}</p>
         </Link>
       </li>
     ));

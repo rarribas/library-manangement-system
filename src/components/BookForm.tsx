@@ -2,7 +2,7 @@ import Form from "./Form";
 import { bookInputs } from "../data/books";
 import FormMessage, { type MessageVariantType } from "./FormMessage";
 import BooksContext from "../context/books";
-import { type BookI, type LimitedBookType, type BookCategory } from "../data/books";
+import { type BookI, type LimitedBookType, type BookCategory, type SubmitBookType} from "../data/books";
 import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { useFormValidation } from "../hooks/useFormValidation";
 
@@ -117,8 +117,8 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       return false;
     } 
 
-    const bookItem:BookI = {
-      id: editableBook?.id || '',
+    const bookItem:SubmitBookType = {
+      id: editableBook?.id || 0,
       title: book?.title,
       category: book?.category,
       publishedYear: book?.publishedYear,

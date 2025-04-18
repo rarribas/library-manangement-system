@@ -59,6 +59,8 @@ export type BooksInList = Pick<BookI, "id" | "title" | "publishedYear" | "coverI
 
 export type LimitedBookType = Omit<BookI, 'id' | 'copiesAvailable' | 'onsale'>;
 
+export type SubmitBookType = Omit<BookI, 'copiesAvailable' | 'onsale'>;
+
 export interface EditableBookI {
   name: keyof LimitedBookType
   type: 'text' | 'date' | "select"

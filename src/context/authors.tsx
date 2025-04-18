@@ -5,17 +5,22 @@ export interface AuthorsContextI {
   authors: AuthorI[],
   getAuthors: () => Promise<AuthorI[]>,
   editAuthors: (author: AuthorI) => void,
+  isLoading: boolean,
 }
 
 const AuthorsContext = createContext<AuthorsContextI | null>(null);
 
 function Provider({ children }: { children: React.ReactNode }) {
   const [authors, setAuthors] = useState<Awaited<ReturnType<typeof getAuthors>>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getAuthors = ():Promise<AuthorI[]> => {
+    setIsLoading(true);
+
     return new Promise<AuthorI[]>((resolve) => {
       setTimeout(() => {
         setAuthors(authorsData);
+        setIsLoading(false);
         resolve(authors);
       }, 1000);
     });
@@ -41,7 +46,8 @@ function Provider({ children }: { children: React.ReactNode }) {
   const valueToShare = {
     authors,
     getAuthors,
-    editAuthors
+    editAuthors,
+    isLoading,
   };
 
   return (

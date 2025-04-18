@@ -1,0 +1,21 @@
+.not_found{
+  position: fixed;
+  inset: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 520px;
+  margin: 0 auto;
+  padding: 16px;
+
+  p{
+    font-size: 14px;
+  }
+
+  a{
+    margin-top: 20px;
+    max-width: 200px;
+  }
+}

@@ -1,11 +1,11 @@
-import { booksData, type BookI } from "../data/books";
+import { booksData, type BookI, type SubmitBookType } from "../data/books";
 import { createContext, useState } from "react";
 
 export interface BooksContextI {
   books: BookI[],
   getBooks: () => Promise<BookI[]>,
-  editBooks: (book: BookI) => void,
-  addBook: (book: BookI) => void,
+  editBooks: (book: SubmitBookType) => void,
+  addBook: (book: SubmitBookType) => void,
 }
 
 const BooksContext = createContext<BooksContextI | null>(null);
@@ -22,7 +22,7 @@ function Provider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const editBooks = (book:BookI) => {
+  const editBooks = (book:SubmitBookType) => {
     const booksToUpdate = books.map((b) => {
       if(b.id === book.id) {
         return {
@@ -41,7 +41,7 @@ function Provider({ children }: { children: React.ReactNode }) {
     setBooks(booksToUpdate);
   };
 
-  const addBook = (book:BookI) => {
+  const addBook = (book:SubmitBookType) => {
     const lastBook = books.length > 0 ? books[books.length - 1] : undefined;
     const newBook:BookI = {
       id: lastBook && lastBook.id ? lastBook.id + 1 : 0,
