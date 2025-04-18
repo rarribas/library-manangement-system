@@ -3,7 +3,8 @@ import { useContext, useEffect } from 'react';
 import AuthorsContext from './context/authors';
 import BooksContext from './context/books';
 import { getRoutes } from './data/routes';
-import { Routes } from 'react-router';
+import { Routes, Route } from 'react-router';
+import  Layout from './components/Layout';
 
 function App() {
 
@@ -25,7 +26,9 @@ function App() {
 
   return (
     <Routes>
-     {getRoutes()}
+     <Route element={<Layout />}>
+      {getRoutes()}
+     </Route>
     </Routes>
   )
 }

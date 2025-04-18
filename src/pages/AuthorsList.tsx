@@ -24,7 +24,7 @@ export default function AuthorsList() {
       return (
         <li key={author.id}>
           <Link to={`/author/${author.id}/view`}>
-            {author.firstname} {author.lastname}
+            {author.firstname} {author.lastname} - {author.nationality}
           </Link>
         </li>
       );
