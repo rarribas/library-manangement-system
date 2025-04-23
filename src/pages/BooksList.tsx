@@ -2,7 +2,7 @@ import List from "../components/List";
 import {type BookI } from "../data/books";
 import BooksContext from "../context/books";
 import { useContext } from "react";
-import { Link } from "react-router";
+import BookItem from "../components/BookItem";
 
 type BooksInList = Pick<BookI, "id" | "title" | "coverImage" | "publishedYear">
 interface BooksListProps {
@@ -19,19 +19,7 @@ export default function AuthorsList() {
   const { books } = booksContext as BooksListProps;
 
   const getBooks = () => {
-    return books.map((book) => {
-      return (
-        <li key={book.id}>
-        <Link to={`/books/${book.id}/view`}>
-          <header>
-            <img src={book.coverImage} alt={book.title} height={280} width={180} />
-          </header>
-          
-          <h5>{book.title} - {book.publishedYear}</h5>
-        </Link>
-      </li>
-      );
-    });
+    return books.map((book) => <BookItem book={book}/>);
   };
 
   return (

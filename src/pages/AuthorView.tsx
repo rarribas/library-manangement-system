@@ -4,12 +4,12 @@ import BooksContext from "../context/books";
 import styles from "./AuthorView.module.scss";
 import { type BooksInList } from "../data/books";
 import List from "../components/List";
-import { Link } from "react-router";
 import { useParams, useNavigate } from "react-router";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import AuthorForm from "../components/AuthorForm";
 import Loading from "../components/Loading";
+import BookItem from "../components/BookItem";
 
 export default function AuthorView() {
   const authorsContext = useContext(AuthorsContext);
@@ -47,16 +47,7 @@ export default function AuthorView() {
   const booksByAuthor:BooksInList[] = books.filter((book) => editableAuthor.bookIds?.includes(book.id));
 
   const getListOfBooks = () => {
-    return booksByAuthor.map((book) => (
-      <li key={book.id}>
-        <Link to={`/book/${book.id}/view`}>
-          <header>
-            <img src={book.coverImage} alt={book.title} height={280} width={180} />
-          </header>
-          <h5>{book.title} - {book.publishedYear}</h5>
-        </Link>
-      </li>
-    ));
+    return booksByAuthor.map((book) => <BookItem book={book}/>)
   }
 
   return (
