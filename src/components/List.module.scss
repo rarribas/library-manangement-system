@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 12px;
 
+
   li,
   > a{
     width: 100%;
@@ -14,6 +15,14 @@
     &:hover{
       box-shadow: -2px 4px 4px 0 rgba(0, 0, 0, 0.1);
     }
+  }
+
+  &[data-variant="books"] {
+    justify-content: center;
+  }
+
+  &[data-variant="books"] li{
+    width: 180px;
   }
 
   li a {

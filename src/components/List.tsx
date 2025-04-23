@@ -3,12 +3,12 @@ import styles from './List.module.scss';
 
 interface ListProps {
   children: ReactNode;
+  variant?: string;
 }
 
-export default function List({ children }: ListProps) {
+export default function List({ children, variant }: ListProps) {
   
-  return <ul className={styles['list']}>
+  return <ul className={styles['list']} data-variant={variant}>
     {children}
-    {/* TODO ADD LINK HERE WITH PROPERTIES */}
   </ul>
 }

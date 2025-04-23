@@ -23,8 +23,8 @@ const Form = forwardRef<HTMLFormElement, FormI>(({
 
   return (
     <form ref={ref} className={styles.form} onSubmit={afterSubmit}>
-      <div>{children}</div>
-      <div>
+      <>{children}</>
+      <div className={styles['form-actions']}>
         <Button
           text={buttonText}
           type="submit"

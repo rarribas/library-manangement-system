@@ -23,8 +23,11 @@ export default function AuthorsList() {
       return (
         <li key={book.id}>
         <Link to={`/books/${book.id}/view`}>
-          <img src={book.coverImage} alt={book.title} />
-          <p>{book.title} - {book.publishedYear}</p>
+          <header>
+            <img src={book.coverImage} alt={book.title} height={280} width={180} />
+          </header>
+          
+          <h5>{book.title} - {book.publishedYear}</h5>
         </Link>
       </li>
       );
@@ -34,11 +37,9 @@ export default function AuthorsList() {
   return (
     <section>
       <h1>Books List</h1>
-      <List>
+      <List variant="books">
         {getBooks()}
       </List>
-      {/* TODO: Should the action be passed by the parent or should we have
-      always a link here. In some context we might not need an action */}
     </section>
   );
 }

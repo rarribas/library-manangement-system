@@ -50,8 +50,10 @@ export default function AuthorView() {
     return booksByAuthor.map((book) => (
       <li key={book.id}>
         <Link to={`/book/${book.id}/view`}>
-          <img src={book.coverImage} alt={book.title} />
-          <p>{book.title} - {book.publishedYear}</p>
+          <header>
+            <img src={book.coverImage} alt={book.title} height={280} width={180} />
+          </header>
+          <h5>{book.title} - {book.publishedYear}</h5>
         </Link>
       </li>
     ));
@@ -59,23 +61,26 @@ export default function AuthorView() {
 
   return (
     <section className={styles['author-item']}>
-      <header>
-        <h1>{editableAuthor.firstname} {editableAuthor.lastname}</h1>
-      </header>
-      <div>
-        <p><span>Birthdate:</span>{editableAuthor.birthDate.toLocaleDateString()}</p>
-        <p><span>Nationality:</span>{editableAuthor.nationality}</p>
-      </div>
-      <Button
-        text="Edit"
-        onButtonClick={() => setShowModal(true)} />
+      <aside>
+        <header>
+          <h1>{editableAuthor.firstname} {editableAuthor.lastname}</h1>
+        </header>
+        <div>
+          <p><span>Birthdate:</span>{editableAuthor.birthDate.toLocaleDateString()}</p>
+          <p><span>Nationality:</span>{editableAuthor.nationality}</p>
+        </div>
+        <Button
+          text="Edit Author"
+          onButtonClick={() => setShowModal(true)} 
+        />
+      </aside>
+     
       {booksByAuthor.length > 0 && (
-        <>
-          <h3>Books</h3>
-          <List>
+        <div>
+          <List variant="books">
             {getListOfBooks()}
           </List>
-        </>
+        </div>
       )}
 
       <Modal

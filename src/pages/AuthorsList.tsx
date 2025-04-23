@@ -7,7 +7,8 @@ import Loading from "../components/Loading";
 
 type AuthorsInList = Pick<AuthorI, "id" | "firstname" | "lastname" | "nationality">
 interface AuthorsListProps {
-  authors: AuthorsInList[]
+  authors: AuthorsInList[],
+  isLoading: boolean
 }
 
 export default function AuthorsList() {
