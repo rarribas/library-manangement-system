@@ -25,7 +25,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
   useEffect(() => {
     setBook({
       title: editableBook?.title || '',
-      category: editableBook?.category || 'defaultCategory' as BookCategory,
+      category: editableBook?.category || '' as BookCategory,
       publishedYear: editableBook?.publishedYear || '',
       coverImage: editableBook?.coverImage || '',
       isbn: editableBook?.isbn || '',
@@ -73,7 +73,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
               onChange={(ev) => onInputChange(ev, input.name)}
             >
 
-              <option value="defaultCategory">Select a category</option>
+              <option value="">Select a category</option>
               {input.options?.map((option) => (
                 <option
                   key={`input_${input.name}_${option.value}`}
@@ -101,7 +101,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
   const resetForm = () => {
     setBook({
       title: '',
-      category: 'defaultCategory' as BookCategory,
+      category: '' as BookCategory,
       publishedYear: '',
       coverImage: '',
       isbn: '',
