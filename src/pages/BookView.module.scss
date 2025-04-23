@@ -1,0 +1,15 @@
+.book-item {
+  display: flex;
+  gap: 32px;
+  flex-direction: row;
+  margin: 32px;
+  justify-content: center;
+}
+
+.book-item aside {
+  width: 180px;
+}
+
+.book-item h1 {
+  text-align: left;
+}

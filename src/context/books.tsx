@@ -6,17 +6,22 @@ export interface BooksContextI {
   getBooks: () => Promise<BookI[]>,
   editBooks: (book: SubmitBookType) => void,
   addBook: (book: SubmitBookType) => void,
+  isLoading: boolean,
 }
 
 const BooksContext = createContext<BooksContextI | null>(null);
 
 function Provider({ children }: { children: React.ReactNode }) {
   const [books, setBooks] = useState<Awaited<ReturnType<typeof getBooks>>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getBooks = ():Promise<BookI[]> => {
+    setIsLoading(true);
+
     return new Promise<BookI[]>((resolve) => {
       setTimeout(() => {
         setBooks(booksData);
+        setIsLoading(false);
         resolve(books);
       }, 1000);
     });
@@ -66,7 +71,8 @@ function Provider({ children }: { children: React.ReactNode }) {
     books,
     getBooks,
     editBooks,
-    addBook
+    addBook,
+    isLoading
   };
 
   return (

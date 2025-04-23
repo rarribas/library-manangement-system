@@ -1,54 +1,62 @@
 import { useContext, useState } from "react";
 import BooksContext from "../context/books";
-import styles from "./AuthorView.module.scss";
-import { useParams } from "react-router";
+import styles from "./BookView.module.scss";
+import { useParams, useNavigate, useEffect } from "react-router";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import BookForm from "../components/BookForm";
+import Loading from "../components/Loading";
 
-export default function AuthorView() {
+export default function BookView() {
   const booksContext = useContext(BooksContext);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
   
-
   if (!booksContext) {
     throw new Error("BookContext must be used within a BooksProvider");
   }
 
-  const { books } = booksContext;
-  const { id } = useParams();
-
+  const { books, isLoading } = booksContext;
   const editableBook = books.find((book) => book.id === Number(id));
 
-  console.log(books, editableBook)
+  useEffect(() => {
+    if(!editableBook && !isLoading) {
+      navigate("/not-found");
+    }
+  }, [editableBook, isLoading, navigate]);
+
+  if(isLoading) {
+    return <Loading/>;
+  }
 
   if(!editableBook) {
-    // TODO: Handle redirect to 404 page
-    return <p>Book not found</p>;
+    return null;  
   }
 
   return (
-    <section className={styles['author-item']}>
-      <header>
-        <h1>{editableBook.title}</h1>
-        <img src={editableBook.coverImage} alt={editableBook.title} />
-      </header>
+    <section className={styles['book-item']}>
+      <aside>
+        <img src={editableBook.coverImage} alt={editableBook.title} width={180} height={280}/>
+      </aside>
       <div>
+        <h1>{editableBook.title}</h1>
         <p><span>Year: </span>{editableBook.publishedYear}</p>
         <p><span>Category: </span>{editableBook.category}</p>
         <p><span>ISBN: </span>{editableBook.isbn}</p>
         <p><span>Copies Available:</span>{editableBook.copiesAvailable}</p>
         <p><span>Onsale: </span>{editableBook.onsale ? 'Yes' : 'No'}</p>
+        <Button
+          text="Edit Book"
+          onButtonClick={() => setShowModal(true)} 
+        />
       </div>
-      <Button
-        text="Edit"
-        onButtonClick={() => setShowModal(true)} />
 
       <Modal
         showModal={showModal}
         onModalClosed={() => setShowModal(false)}>
           <BookForm editableBook={editableBook} afterSubmit={() => setShowModal(false)}/>
-        </Modal>
+      </Modal>
       
     </section>
   );
