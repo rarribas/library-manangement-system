@@ -47,7 +47,7 @@ export default function AuthorView() {
   const booksByAuthor:BooksInList[] = books.filter((book) => editableAuthor.bookIds?.includes(book.id));
 
   const getListOfBooks = () => {
-    return booksByAuthor.map((book) => <BookItem book={book}/>)
+    return booksByAuthor.map((book) => <BookItem key={book.id} book={book}/>)
   }
 
   return (

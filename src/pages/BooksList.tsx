@@ -19,7 +19,7 @@ export default function AuthorsList() {
   const { books } = booksContext as BooksListProps;
 
   const getBooks = () => {
-    return books.map((book) => <BookItem book={book}/>);
+    return books.map((book) => <BookItem key={book.id} book={book}/>);
   };
 
   return (

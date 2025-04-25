@@ -7,8 +7,8 @@ interface BookItemProps {
 
 export default function BookItem({book}:BookItemProps){
   return(
-    <li key={book.id}>
-      <Link to={`/book/${book.id}/view`}>
+    <li>
+      <Link to={`/books/${book.id}/view`}>
         <header>
           <img src={book.coverImage} alt={book.title} height={280} width={180} />
         </header>

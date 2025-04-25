@@ -22,6 +22,7 @@ export default function AuthorsList() {
 
   const getAuthors = () => {
     return authors.map((author) => {
+      console.log(author, author.id, "AUTHOR");
       return (
         <li key={author.id}>
           <Link to={`/author/${author.id}/view`}>

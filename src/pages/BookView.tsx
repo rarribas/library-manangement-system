@@ -12,7 +12,7 @@ export default function BookView() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  
+ 
   if (!booksContext) {
     throw new Error("BookContext must be used within a BooksProvider");
   }
