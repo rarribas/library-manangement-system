@@ -2,7 +2,7 @@ import Form from "./Form";
 import { authorInputs } from "../data/authors";
 import FormMessage, { type MessageVariantType } from "./FormMessage";
 import AuthorsContext from "../context/authors";
-import { type AuthorI, type LimitedAuthorType } from "../data/authors";
+import { type AuthorI, type LimitedAuthorType} from "../data/authors";
 import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { useFormValidation } from "../hooks/useFormValidation";
 
@@ -25,7 +25,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
       firstname: editableAuthor?.firstname || '',
       lastname: editableAuthor?.lastname || '',
       nationality: editableAuthor?.nationality || '',
-    })
+    } satisfies LimitedAuthorType)
   },[editableAuthor])
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
     const updatedAuthor = {
       ... author,
       [inputName]: ev.target.value,
-    }
+    } satisfies LimitedAuthorType;
 
     setAuthor(updatedAuthor)
   }
@@ -80,7 +80,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
       firstname: '',
       lastname: '',
       nationality: ''
-    } as AuthorI)
+    } satisfies LimitedAuthorType)
   }
   
   const onFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +97,7 @@ export default function AuthorForm({editableAuthor, afterSubmit}:AuthorFormI) {
       firstname: author.firstname,
       lastname: author.lastname,
       nationality: author.nationality
-    } as AuthorI)
+    } satisfies LimitedAuthorType);
 
     resetForm();
     setSubmitStatus("success");

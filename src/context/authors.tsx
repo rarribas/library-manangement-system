@@ -1,10 +1,10 @@
-import { authorsData, type AuthorI } from "../data/authors";
+import { authorsData, type AuthorI, type LimitedAuthorType } from "../data/authors";
 import { createContext, useState } from "react";
 
 export interface AuthorsContextI {
   authors: AuthorI[],
   getAuthors: () => Promise<AuthorI[]>,
-  editAuthors: (author: AuthorI) => void,
+  editAuthors: (author: LimitedAuthorType) => void,
   isLoading: boolean,
 }
 
@@ -21,12 +21,12 @@ function Provider({ children }: { children: React.ReactNode }) {
       setTimeout(() => {
         setAuthors(authorsData);
         setIsLoading(false);
-        resolve(authors);
+        resolve(authorsData);
       }, 1000);
     });
   };
 
-  const editAuthors = (author:AuthorI) => {
+  const editAuthors = (author:LimitedAuthorType) => {
     const authorsToUpdate = authors.map((a) => {
       if(a.id === author.id) {
         return {

@@ -29,7 +29,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       publishedYear: editableBook?.publishedYear || '',
       coverImage: editableBook?.coverImage || '',
       isbn: editableBook?.isbn || '',
-    })
+    } satisfies LimitedBookType)
   },[editableBook])
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
     const updatedBook = {
       ...book,
       [inputName]: ev.target.value,
-    };
+    } satisfies LimitedBookType;
   
     setBook(updatedBook);
   };
@@ -105,7 +105,7 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       publishedYear: '',
       coverImage: '',
       isbn: '',
-    } as LimitedBookType)
+    } satisfies LimitedBookType)
   }
   
   const onFormSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
@@ -117,14 +117,14 @@ export default function AuthorForm({editableBook, afterSubmit}:BookFormI) {
       return false;
     } 
 
-    const bookItem:SubmitBookType = {
+    const bookItem = {
       id: editableBook?.id || 0,
       title: book?.title,
       category: book?.category,
       publishedYear: book?.publishedYear,
       coverImage: book?.coverImage,
       isbn: book?.isbn,
-    }
+    } satisfies SubmitBookType;
 
     if(editableBook) {
       editBooks(bookItem);

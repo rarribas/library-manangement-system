@@ -22,7 +22,7 @@ function Provider({ children }: { children: React.ReactNode }) {
       setTimeout(() => {
         setBooks(booksData);
         setIsLoading(false);
-        resolve(books);
+        resolve(booksData);
       }, 1000);
     });
   };
@@ -32,11 +32,7 @@ function Provider({ children }: { children: React.ReactNode }) {
       if(b.id === book.id) {
         return {
           ...b,
-          title: book.title,
-          publishedYear: book.publishedYear,
-          coverImage: book.coverImage,
-          category: book.category,
-          isbn: book.isbn
+          ...book,
         }
       }else{
         return b;
