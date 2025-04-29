@@ -4,7 +4,7 @@ export function useFormValidation() {
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
 
-  const getEmptyValues =  <T extends Record<string, string>>(formElements: T) => {
+  const getEmptyValues =  <T extends Record<string, string | number>>(formElements: T) => {
     return Object.entries(formElements)
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       .filter(([_, value]) => value === '') 
@@ -17,8 +17,7 @@ export function useFormValidation() {
     return !formErrors.includes(inputName);
   };
 
-  // Accepts any kind of objects with a key:string and value:any
-  const isValidData =  <T extends Record<string, string>>(formElements: T) => {
+  const isValidData =  <T extends Record<string, string | number>>(formElements: T) => {
     const emptyElements = getEmptyValues(formElements); 
     if(emptyElements.length > 0){
       setFormErrors(emptyElements);
